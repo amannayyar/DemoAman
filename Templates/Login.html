@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="../Css/Login.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <form name="reviewForm">
+        <div class="maindiv">
+            <div class="inputdiv">
+                <span>User Name:</span>
+                <input type="text" ng-model="user.username" required /> <span ng-hide="reviewForm.$valid" style="color:red">*</span>
+            </div>
+            </br>
+            <div class="inputdiv">
+                <span>Password:</span>
+                <input type="password" ng-model="user.password" style="margin-left:11px;" required /> <span ng-hide="reviewForm.$valid" style="color:red">*</span>
+            </div>
+            <input type="button" value="Log In" class="loginbtn" ng-disabled="!reviewForm.$valid" ng-click="login()" />
+        </div> 
+        <!--<div>Form is {{reviewForm.$valid}}</div>-->   
+        <!--<input type="button" value="Save" ng-click="Save()" />-->
+        
+    </form>
+</body>
+</html>
