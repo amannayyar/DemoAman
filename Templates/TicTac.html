@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tic Tac Toe Game</title>
+    <!--<script src="../Scripts/angular.min.js"></script>
+    <script src="../Controller/TicTacToeController.js"></script>-->
+    <!--<script src="../Controller/RootScopeController.js"></script>-->
+    <style>
+        .cell {
+            width: 100px;
+            height: 100px;
+            font: 90px sans-serif;
+            text-align: center;
+            vertical-align: center;
+        }
+
+        .Center {
+            margin-top: 50px;
+            margin-left: 500px;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <div class="Center">
+            <div>Hello <span>{{CurrentUser | uppercase}} !</span></div>
+            <div>
+                <div style="margin-top:20px;">
+                    <input type="button" value="Let's Start the Game" ng-click="startGame()" />
+                    <input type="button" value="End Game" ng-show="GameStart" ng-click="endGame()" />
+                </div>
+            </div>
+
+            <div ng-show="GameStart">
+                <div style="margin-top:20px">
+                    Players:
+                    <label>
+                        <input type="radio" value="O" ng-model="player" /><strong>O({{UserName | uppercase}})</strong>
+                    </label>
+                    <label>
+                        <input type="radio" value="X" ng-model="player" /><strong>X(Player 2)</strong>
+                    </label>
+                </div>
+
+                <div style="margin-top:20px">
+                    <!--<h2 ng-show="currentPlayer == player">Player 1 Turn</h2>
+
+                    <h2 ng-show="currentPlayer != player">Player 2 Turn</h2>-->
+
+                    <h2 ng-show="winner">Winner is {{WinUser}}!! </h2>
+
+                    <table border="1">
+                        <tr ng-repeat="row in [0,1,2]">
+                            <td ng-repeat="column in [0,1,2]" ng-click="cellClick(row,column,$index)" class="cell">{{cellText(row,column)}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>    
+            <!--<input type="button" value="RootScope" ng-click="sendValue()" />-->
+        </div>
+    </div>
+</body>
+</html>

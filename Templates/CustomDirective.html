@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Custom Directives</title>
+
+
+    <script src="../Scripts/angular.min.js"></script>
+    <script src="../Controller/CustomDirectiveController.js"></script>
+</head>
+<body>
+    <h1>Directives Demo</h1>
+    <div ng-app="CustomDirective">
+        <div ng-controller="CustomDirectiveController">
+            <div insert-my-template></div>
+           
+            <div showdata></div>
+            
+            <div insert-my-templates></div>
+            <input name="number" isnumber ng-model="InputNo" />
+           <div click_counter='numberOfClicks'>
+                Click Here <br>
+                No of clicks : {{numberOfClicks}}
+            </div>
+            <!--<div my-bind="numberOfClicks"></div>-->
+            <!--<mydialog>{{InputNo}}</mydialog>
+            <div mydialog>{{InputNo}}</div>-->
+        </div>
+
+
+
+    </div>
+</body>
+</html>
