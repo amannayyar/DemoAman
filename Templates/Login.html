@@ -18,7 +18,11 @@
                 <input type="password" ng-model="user.password" style="margin-left:11px;" required /> <span ng-hide="reviewForm.$valid" style="color:red">*</span>
             </div>
             <input type="button" value="Log In" class="loginbtn" ng-disabled="!reviewForm.$valid" ng-click="login()" />
-        </div> 
+            <input type="button" value="Promises" ng-click="makePromiseWithSon()">
+            <!--<input type="button" value="Promise Example" ng-click="promise()">-->
+        </div>
+
+        
         <!--<div>Form is {{reviewForm.$valid}}</div>-->   
         <!--<input type="button" value="Save" ng-click="Save()" />-->
         

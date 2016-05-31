@@ -2,6 +2,7 @@
 var Gamingapp = angular.module("TicTac", ['ngRoute', "ngStorage"]);
 Gamingapp.controller("IndexController", ["$scope", "$rootScope", function ($scope, $rootScope)
 {
+    
     $rootScope.showButton = true;  
     //alert($rootScope.showButton);
 }])
@@ -34,6 +35,11 @@ Gamingapp.controller("IndexController", ["$scope", "$rootScope", function ($scop
         .when('/Dashboard', {
             templateUrl: '/Templates/Dashboard.html',
             controller: 'DashboardController'
+        })
+        .when('/SignUp',
+        {
+            templateUrl: '/Templates/signUP.html',
+            controller: 'signUpController'
         })
     .otherwise({
         redirectTo: '/'

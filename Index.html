@@ -14,6 +14,7 @@
     <script src="Controller/UserController.js"></script>
     <script src="Controller/LogoutController.js"></script>
     <script src="Controller/DashboardController.js"></script>
+    <script src="Controller/signUpController.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,7 @@
             <a href="#/Login" ng-show="showButton">Login</a>
             <a href="#/Logout" ng-show="CurrentUser.length>0">Logout</a>
             <a href="#/Dashboard">Dashboard</a>
+            <a href="#/SignUp">SignUp</a>
             <!--<a href="#/rootScopes">rootScope</a>-->
             <div ng-view></div>
         </div>

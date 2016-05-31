@@ -1,11 +1,11 @@
 ﻿/// <reference path="../Scripts/angular.min.js" />
 
 Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localStorage", function ($scope, $rootScope, $location, $localStorage) {
-    debugger;
-    //alert($rootScope.showButton);
+    debugger;    
     //$rootScope.showButton = false;
     $scope.UserName = $rootScope.CurrentUser;
     $scope.AllUserName = $rootScope.UserNames;
+
     $scope.startGame = function () {
         $scope.GameStart = true;
         $scope.winner = null;
@@ -13,13 +13,13 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
         $scope.player = 'O'
         $scope.IsFilled = false;
         $scope.count = 0;
-        debugger;
+        $scope.WinUser = null;
         ///***Dashborad Start***///
         $scope.GamesPlayed = 0;
         $scope.Win = 0;
         $scope.Loss = 0;
         $scope.Tie = 0;
-
+        //debugger;
         var data = $rootScope.UserNames.filter(function (item) {
             return item.username == $rootScope.CurrentUser
         }
@@ -40,21 +40,40 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
             }
             else {
                 $scope.GamesPlayed = $scope.GamesPlayed + 1;
-
             }
             if (data.length >= 2) {
             }
             else {
-
+                debugger;
                 if ($rootScope.UserInfo) {
-                    $rootScope.UserInfo.push({
-
-                        UserName: $scope.UserName,
-                        GamesPlayed: $scope.GamesPlayed,
-                        Win: $scope.Win,
-                        Loss: $scope.Loss,
-                        Tie: $scope.Tie
+                    ///***Code to restrict not to add user again if he is playing the game again & again after login.
+                    var checkCurrentUser;
+                    checkCurrentUser = $rootScope.UserInfo.filter(function (item) {
+                        return item.UserName == $rootScope.CurrentUser;
                     });
+                    if (checkCurrentUser) {
+                        if (checkCurrentUser.length < 1) {
+
+                            $rootScope.UserInfo.push({
+
+                                UserName: $scope.UserName,
+                                GamesPlayed: $scope.GamesPlayed,
+                                Win: $scope.Win,
+                                Loss: $scope.Loss,
+                                Tie: $scope.Tie
+                            });
+                        }
+                        else {
+                            outer_loop:
+
+                                for (var i = 0; i < $rootScope.UserInfo.length; i++) {
+                                    if ($rootScope.UserInfo[i].UserName == $rootScope.CurrentUser) {
+                                        $rootScope.UserInfo[i].GamesPlayed = $rootScope.UserInfo[i].GamesPlayed + 1;
+                                        break outer_loop;
+                                    }
+                                }
+                        }
+                    }
                 }
                 else {
                     $rootScope.UserInfo = [{
@@ -78,20 +97,25 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
 
     }
     $scope.endGame = function () {
+        debugger;
         $scope.GameStart = false;
         $scope.currentPlayer = 'O'
         $scope.player = 'O'
         $scope.winner = null;
         $scope.count = 0;
-        outer_loop:
-            if ($rootScope.UserInfo) {
-                for (var j = 0; j < $rootScope.UserInfo.length; j++) {
-                    if ($rootScope.UserInfo[j].UserName == $rootScope.CurrentUser) {
-                        $rootScope.UserInfo[j].GamesPlayed = $rootScope.UserInfo[j].GamesPlayed - 1;
-                        break outer_loop;
+        //alert($scope.WinUser);
+        if($scope.WinUser == null)
+        {
+            outer_loop:
+                if ($rootScope.UserInfo) {
+                    for (var j = 0; j < $rootScope.UserInfo.length; j++) {
+                        if ($rootScope.UserInfo[j].UserName == $rootScope.CurrentUser) {
+                            $rootScope.UserInfo[j].GamesPlayed = $rootScope.UserInfo[j].GamesPlayed - 1;
+                            break outer_loop;
+                        }
                     }
                 }
-            }
+        }
         $scope.board = [
         [null, null, null],
         [null, null, null],
@@ -133,14 +157,17 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
         }
         if ($scope.winner) {
             alert('Game over.')
+            $scope.endGame();
             return
         }
         if ($scope.currentPlayer == 'O') {
             //$scope.PlayerName = 'Player 1';
             $scope.PlayerName = $rootScope.CurrentUser;
+            //$scope.player = 'O';
         }
         else {
             $scope.PlayerName = 'Player 2';
+            //$scope.player = 'X';
         }
 
         if ($scope.player != $scope.currentPlayer) {
@@ -155,11 +182,12 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
         }
         //***Code for Tie Start***//
         debugger;
-        if ($scope.count == 9 && $scope.winner == null) {           
+        if ($scope.count == 9 && $scope.winner == null) {
             outer_loop:
                 for (var j = 0; j < $rootScope.UserInfo.length; j++) {
                     if ($rootScope.UserInfo[j].UserName == $rootScope.CurrentUser) {
                         $rootScope.UserInfo[j].Tie = $rootScope.UserInfo[j].Tie + 1;
+                        $scope.WinUser = 'None';
                         break outer_loop;
                     }
                 }
@@ -212,6 +240,14 @@ Gamingapp.controller("TicTacToe", ['$scope', "$rootScope", "$location", "$localS
             if (cell(0, 2) == cell(1, 1) && cell(1, 1) == cell(2, 0)) {
                 winner = cell(0, 0)
             }
+        }
+
+        //Code Added on 31/05/2016
+        if ($scope.currentPlayer == 'O') {
+            $scope.player = 'X';
+        }
+        else {
+            $scope.player = 'O';
         }
 
         ///***function for calculating win,loss and tie ***///
