@@ -26,7 +26,7 @@ Gamingapp.controller("UserController", ['$scope', "$rootScope", "$location", "$l
 
                     var passwordMatch;
                     passwordMatch = tempdata.filter(function (item) {
-                        return item.password == $scope.user.password;
+                        return item.password == $scope.user.password && item.username == $scope.user.username;
                     });
                     if (passwordMatch.length == 0) {
                         alert("Wrong Password.");
